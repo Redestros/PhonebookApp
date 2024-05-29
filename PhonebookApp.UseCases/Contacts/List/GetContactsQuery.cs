@@ -72,6 +72,8 @@ internal sealed class SearchContactsSpec : Specification<Contact>
             Query.Where(x => x.Email.Contains(email));
         }
 
+        Query.OrderBy(x => x.FirstName);
+
         Query.Skip((page - 1) * size)
             .Take(size);
     }
