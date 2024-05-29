@@ -20,7 +20,7 @@ public static class ServiceRegistrationExtensions
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
         
-        services.AddValidatorsFromAssemblyContaining<CreateContractCommandValidator>();
+        services.AddValidatorsFromAssemblyContaining<CreateContactCommandValidator>();
         services.AddProblemDetails();
         
         services.AddControllers();

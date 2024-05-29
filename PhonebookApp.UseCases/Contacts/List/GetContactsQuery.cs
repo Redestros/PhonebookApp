@@ -5,9 +5,9 @@ using PhonebookApp.Core.Aggregates.ContactAggregate;
 
 namespace PhonebookApp.UseCases.Contacts.List;
 
-public class GetContractsQuery : IRequest<List<ContractDto>>
+public class GetContactsQuery : IRequest<List<ContactDto>>
 {
-    public GetContractsQuery(string firstName, string lastName, string phone, string email, int page, int size)
+    public GetContactsQuery(string firstName, string lastName, string phone, string email, int page, int size)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -25,31 +25,31 @@ public class GetContractsQuery : IRequest<List<ContractDto>>
     public int Size { get; }
 }
 
-internal class GetContractsHandler : IRequestHandler<GetContractsQuery, List<ContractDto>>
+internal class GetContactsHandler : IRequestHandler<GetContactsQuery, List<ContactDto>>
 {
     private readonly IReadRepository<Contact> _repository;
 
-    public GetContractsHandler(IReadRepository<Contact> repository)
+    public GetContactsHandler(IReadRepository<Contact> repository)
     {
         _repository = repository;
     }
 
-    public async Task<List<ContractDto>> Handle(GetContractsQuery request, CancellationToken cancellationToken)
+    public async Task<List<ContactDto>> Handle(GetContactsQuery request, CancellationToken cancellationToken)
     {
-        var spec = new SearchContractsSpec(request.FirstName, request.LastName,
+        var spec = new SearchContactsSpec(request.FirstName, request.LastName,
             request.Phone, request.Email, request.Page, request.Size);
         
-        var contracts = await _repository.ListAsync(spec, cancellationToken);
+        var contacts = await _repository.ListAsync(spec, cancellationToken);
         
-        return contracts
-            .Select(x => new ContractDto(x.Id, x.Name, x.Phone, x.Email))
+        return contacts
+            .Select(contact => contact.ToDto())
             .ToList();
     }
 }
 
-internal sealed class SearchContractsSpec : Specification<Contact>
+internal sealed class SearchContactsSpec : Specification<Contact>
 {
-    public SearchContractsSpec(string firstName, string lastName, string phone, string email,
+    public SearchContactsSpec(string firstName, string lastName, string phone, string email,
         int page, int size)
     {
         if (!string.IsNullOrEmpty(firstName))

@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PhonebookApp.UseCases.Contacts;
 using PhonebookApp.UseCases.Contacts.Create;
+using PhonebookApp.UseCases.Contacts.Get;
 using PhonebookApp.UseCases.Contacts.List;
 
 namespace PhonebookApp.Api.Controllers;
@@ -21,17 +22,25 @@ public class ContactController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] GetContractsRequest request,
+    public async Task<IActionResult> Get([FromQuery] GetContactsRequest request,
         [FromQuery] int page, [FromQuery] int size)
     {
-        var query = new GetContractsQuery(request.FirstName, request.LastName, request.Phone,
+        var query = new GetContactsQuery(request.FirstName, request.LastName, request.Phone,
             request.Email, page, size);
         var result = await _mediator.Send(query);
         return Ok(result);
     }
 
+    [HttpGet("{id:int}")]
+    public async Task<Result<ContactDetailDto>> GetById(int id)
+    {
+        var query = new GetContactQuery(id);
+        var result = await _mediator.Send(query);
+        return result;
+    }
+
     [HttpPost]
-    public async Task<Result<ContractDto>> Create(CreateContactRequest request)
+    public async Task<Result<ContactDto>> Create(CreateContactRequest request)
     {
         var command = new CreateContactCommand(request.FirstName,
             request.LastName, request.Email, request.Phone);

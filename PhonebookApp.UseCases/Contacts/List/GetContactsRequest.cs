@@ -1,6 +1,6 @@
 namespace PhonebookApp.UseCases.Contacts.List;
 
-public class GetContractsRequest
+public class GetContactsRequest
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;

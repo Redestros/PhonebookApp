@@ -5,7 +5,7 @@ using PhonebookApp.Core.Repositories;
 
 namespace PhonebookApp.UseCases.Contacts.Create;
 
-public class CreateContactCommand : IRequest<Result<ContractDto>>
+public class CreateContactCommand : IRequest<Result<ContactDto>>
 {
     public CreateContactCommand(string firstName, string lastName, string email, string phone)
     {
@@ -22,7 +22,7 @@ public class CreateContactCommand : IRequest<Result<ContractDto>>
 }
 
 internal sealed class
-    CreateContactHandler : IRequestHandler<CreateContactCommand, Result<ContractDto>>
+    CreateContactHandler : IRequestHandler<CreateContactCommand, Result<ContactDto>>
 {
     private readonly IContactRepository _repository;
 
@@ -31,7 +31,7 @@ internal sealed class
         _repository = repository;
     }
 
-    public async Task<Result<ContractDto>> Handle(CreateContactCommand request,
+    public async Task<Result<ContactDto>> Handle(CreateContactCommand request,
         CancellationToken cancellationToken)
     {
         var contact = new Contact(request.FirstName, request.LastName, request.Email,
@@ -41,11 +41,11 @@ internal sealed class
 
         if (existingContact)
         {
-            return Result<ContractDto>.Conflict("");
+            return Result<ContactDto>.Conflict("");
         }
 
         var createdContact = await _repository.AddAsync(contact);
-        return Result.Success(new ContractDto(
+        return Result.Success(new ContactDto(
             createdContact.Id,
             createdContact.Name,
             createdContact.Phone,

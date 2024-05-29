@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace PhonebookApp.UseCases.Contacts.Create;
 
-public class CreateContractCommandValidator : AbstractValidator<CreateContactCommand>
+public class CreateContactCommandValidator : AbstractValidator<CreateContactCommand>
 {
-    public CreateContractCommandValidator()
+    public CreateContactCommandValidator()
     {
         RuleFor(x => x.FirstName).NotEmpty();
 
