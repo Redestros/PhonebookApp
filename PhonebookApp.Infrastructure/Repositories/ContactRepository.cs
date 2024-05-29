@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PhonebookApp.Core.Abstractions;
 using PhonebookApp.Core.Aggregates.ContactAggregate;
 using PhonebookApp.Core.Repositories;
 
@@ -7,6 +8,7 @@ namespace PhonebookApp.Infrastructure.Repositories;
 public class ContactRepository : IContactRepository
 {
     private readonly AppDbContext _context;
+    public IUnitOfWork UnitOfWork => _context;
 
     public ContactRepository(AppDbContext context)
     {

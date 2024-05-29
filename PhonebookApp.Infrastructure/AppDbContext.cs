@@ -1,11 +1,12 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PhonebookApp.Core.Abstractions;
 using PhonebookApp.Infrastructure.EntityConfigurations;
 using PhonebookApp.Infrastructure.Extensions;
 
 namespace PhonebookApp.Infrastructure;
 
-public class AppDbContext : DbContext
+public class AppDbContext : DbContext, IUnitOfWork
 {
     private readonly IMediator _mediator;
 
@@ -19,13 +20,13 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new ContactEntityConfiguration());
     }
-
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    
+    public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
     {
-        var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
         await _mediator.DispatchDomainEventsAsync(this);
-        
-        return result;
+
+        _ = await base.SaveChangesAsync(cancellationToken);
+
+        return true;
     }
 }

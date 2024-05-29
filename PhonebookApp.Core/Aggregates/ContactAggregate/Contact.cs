@@ -35,4 +35,12 @@ public class Contact : Entity, IAggregateRoot
     public string Phone { get; private set; }
 
     public string Name => $"{FirstName} {LastName}";
+
+    public void Update(string firstName, string lastName, string phone, string email)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Phone = phone;
+        Email = email;
+    }
 }

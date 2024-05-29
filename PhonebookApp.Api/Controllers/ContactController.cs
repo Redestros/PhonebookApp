@@ -6,6 +6,7 @@ using PhonebookApp.UseCases.Contacts;
 using PhonebookApp.UseCases.Contacts.Create;
 using PhonebookApp.UseCases.Contacts.Get;
 using PhonebookApp.UseCases.Contacts.List;
+using PhonebookApp.UseCases.Contacts.Update;
 
 namespace PhonebookApp.Api.Controllers;
 
@@ -47,5 +48,15 @@ public class ContactController : ControllerBase
 
         var result = await _mediator.Send(command);
         return result;
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<bool>> Update(int id, UpdateContactRequest request)
+    {
+        var command = new UpdateContactCommand(id, request.FirstName,
+            request.LastName, request.Email, request.Phone);
+
+        var result = await _mediator.Send(command);
+        return result.IsSuccess ? Ok() : result.ToActionResult(this);
     }
 }
