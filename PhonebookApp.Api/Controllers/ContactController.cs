@@ -12,7 +12,7 @@ using PhonebookApp.UseCases.Contacts.Update;
 namespace PhonebookApp.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 [TranslateResultToActionResult]
 public class ContactController : ControllerBase
 {

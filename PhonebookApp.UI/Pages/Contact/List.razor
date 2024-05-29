@@ -1,0 +1,84 @@
+﻿@page "/contacts"
+@using PhonebookApp.Shared
+@using PhonebookApp.UI.Clients
+@inject ContactClient Client
+@inject NavigationManager NavigationManager
+@inject IJSRuntime Js
+
+<PageTitle>Contacts</PageTitle>
+
+<h1>Contacts</h1>
+
+
+<h4 style="color:blue;">
+    Wants to Add New Contact? Click on <a href="@GetCreateContactViewUrl()">Add Contact</a>
+</h4>
+@if (_contacts == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var contact in _contacts)
+        {
+            <tr>
+                <td>@contact.Name</td>
+                <td>@contact.Phone</td>
+                <td>@contact.Email</td>
+                <td>
+                    <a href="@GetEditContactViewUrl(contact)" class="btn btn-info">Edit</a>
+                </td>
+                <td>
+                    <a @onclick="(() => DeleteContact(contact.Id))" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private ContactDto[]? _contacts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _contacts = await Client.Get();
+    }
+
+    private string GetContactViewUrl(ContactDto employee)
+    {
+        return $"contact/view/{employee.Id}";
+    }
+
+    private string GetCreateContactViewUrl()
+    {
+        return "contacts/create";
+    }
+
+    private string GetEditContactViewUrl(ContactDto employee)
+    {
+        return $"contacts/edit/{employee.Id}";
+    }
+
+    private async Task DeleteContact(int id)
+    {
+        var confirm = await Js.InvokeAsync<bool>("confirm", "Do you want to delete this contact?");
+        if (confirm)
+        {
+            await Client.Delete(id);
+            NavigationManager.NavigateTo("/");
+        }
+    }
+
+}

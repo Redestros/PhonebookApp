@@ -1,0 +1,53 @@
+@page "/contacts/create"
+@using PhonebookApp.UI.Clients
+@using PhonebookApp.UI.Models
+
+
+@inject NavigationManager NavigationManager
+@inject ContactClient Client
+
+<h3>Create an Account</h3>
+
+<div class="row">
+    <EditForm Model="@_createContactModel" OnValidSubmit="@AddContact">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            First name: <InputText id="firstName" @bind-Value="_createContactModel.FirstName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            Last name: <InputText id="lastName" @bind-Value="_createContactModel.LastName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            Phone: <InputText id="phone" @bind-Value="_createContactModel.Phone" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            Email: <InputText id="email" @bind-Value="_createContactModel.Email" class="form-control" />
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </EditForm>
+
+</div>
+
+<br />
+<br />
+<a href="/contacts">Back to List</a>
+
+
+@code {
+    private CreateContactModel _createContactModel = new();
+
+    private async Task AddContact()
+    {
+        await Client.Create(_createContactModel);
+
+        NavigationManager.NavigateTo("contacts");
+    }
+}
