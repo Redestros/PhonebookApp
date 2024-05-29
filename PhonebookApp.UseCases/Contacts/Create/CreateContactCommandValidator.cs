@@ -1,4 +1,5 @@
 using FluentValidation;
+using PhonebookApp.UseCases.Extensions;
 
 namespace PhonebookApp.UseCases.Contacts.Create;
 
@@ -11,5 +12,7 @@ public class CreateContactCommandValidator : AbstractValidator<CreateContactComm
         RuleFor(x => x.LastName).NotEmpty();
 
         RuleFor(x => x.Phone).NotEmpty();
+
+        RuleFor(x => x.Email).IsEmailAddress();
     }
 }
