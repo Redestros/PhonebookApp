@@ -3,7 +3,7 @@ using MediatR;
 
 namespace PhonebookApp.UseCases.Contacts.Update;
 
-public class UpdateContactCommand : IRequest<Result<bool>>
+public class UpdateContactCommand : IRequest<Result>
 {
     public UpdateContactCommand(int id, string firstName, string lastName, string email, string phone)
     {

@@ -52,13 +52,13 @@ public class ContactController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<bool>> Update(int id, UpdateContactRequest request)
+    public async Task<Result> Update(int id, UpdateContactRequest request)
     {
         var command = new UpdateContactCommand(id, request.FirstName,
             request.LastName, request.Email, request.Phone);
 
         var result = await _mediator.Send(command);
-        return result.IsSuccess ? Ok() : result.ToActionResult(this);
+        return result;
     }
     
     [HttpDelete("{id:int}")]
