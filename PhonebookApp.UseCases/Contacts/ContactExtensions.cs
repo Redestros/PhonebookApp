@@ -1,4 +1,5 @@
 using PhonebookApp.Core.Aggregates.ContactAggregate;
+using PhonebookApp.Shared;
 
 namespace PhonebookApp.UseCases.Contacts;
 

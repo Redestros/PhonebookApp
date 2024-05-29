@@ -2,6 +2,7 @@ using Ardalis.Result;
 using MediatR;
 using PhonebookApp.Core.Aggregates.ContactAggregate;
 using PhonebookApp.Core.Repositories;
+using PhonebookApp.Shared;
 
 namespace PhonebookApp.UseCases.Contacts.Create;
 

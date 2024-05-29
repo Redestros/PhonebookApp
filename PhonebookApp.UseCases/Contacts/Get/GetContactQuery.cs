@@ -3,6 +3,7 @@ using Ardalis.Specification;
 using MediatR;
 using PhonebookApp.Core.Abstractions;
 using PhonebookApp.Core.Aggregates.ContactAggregate;
+using PhonebookApp.Shared;
 
 namespace PhonebookApp.UseCases.Contacts.Get;
 

@@ -2,7 +2,7 @@ using Ardalis.Result;
 using Ardalis.Result.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PhonebookApp.UseCases.Contacts;
+using PhonebookApp.Shared;
 using PhonebookApp.UseCases.Contacts.Create;
 using PhonebookApp.UseCases.Contacts.Delete;
 using PhonebookApp.UseCases.Contacts.Get;

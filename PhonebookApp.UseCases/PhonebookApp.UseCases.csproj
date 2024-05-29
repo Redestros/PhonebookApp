@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PhonebookApp.Core\PhonebookApp.Core.csproj" />
+      <ProjectReference Include="..\PhonebookApp.Shared\PhonebookApp.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
