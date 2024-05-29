@@ -42,4 +42,14 @@ public class ContactRepository : IContactRepository
         await _context.SaveChangesAsync();
         return contact;
     }
+
+    public void Delete(int id)
+    {
+        var contact = _context.Set<Contact>().FirstOrDefault(x => x.Id == id);
+        
+        if (contact != null)
+        {
+            _context.Set<Contact>().Remove(contact);
+        }
+    }
 }

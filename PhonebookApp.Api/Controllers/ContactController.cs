@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PhonebookApp.UseCases.Contacts;
 using PhonebookApp.UseCases.Contacts.Create;
+using PhonebookApp.UseCases.Contacts.Delete;
 using PhonebookApp.UseCases.Contacts.Get;
 using PhonebookApp.UseCases.Contacts.List;
 using PhonebookApp.UseCases.Contacts.Update;
@@ -58,5 +59,14 @@ public class ContactController : ControllerBase
 
         var result = await _mediator.Send(command);
         return result.IsSuccess ? Ok() : result.ToActionResult(this);
+    }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<Result> Delete(int id)
+    {
+        var command = new DeleteContactCommand(id);
+
+        var result = await _mediator.Send(command);
+        return result;
     }
 }

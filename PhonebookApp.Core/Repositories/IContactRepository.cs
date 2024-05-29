@@ -9,4 +9,5 @@ public interface IContactRepository : IRepository<Contact>
     bool Exists(string firstName, string lastName);
     bool Exists(string phone);
     Task<Contact> AddAsync(Contact contact);
+    void Delete(int id);
 }
