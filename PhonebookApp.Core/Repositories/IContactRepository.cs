@@ -7,5 +7,6 @@ public interface IContactRepository : IRepository<Contact>
 {
     Task<Contact?> GetByIdAsync(int id);
     bool Exists(string firstName, string lastName);
+    bool Exists(string phone);
     Task<Contact> AddAsync(Contact contact);
 }

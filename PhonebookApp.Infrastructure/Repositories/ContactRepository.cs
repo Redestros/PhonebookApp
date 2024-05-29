@@ -27,6 +27,13 @@ public class ContactRepository : IContactRepository
                       x.LastName.Equals(lastName));
     }
 
+    public bool Exists(string phone)
+    {
+        return _context
+            .Set<Contact>()
+            .Any(x => x.Phone.Equals(phone));
+    }
+
     public async Task<Contact> AddAsync(Contact contact)
     {
         _context.Set<Contact>().Add(contact);

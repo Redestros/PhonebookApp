@@ -37,11 +37,18 @@ internal sealed class
         var contact = new Contact(request.FirstName, request.LastName, request.Email,
             request.Phone);
 
-        var existingContact = _repository.Exists(contact.FirstName, contact.LastName);
+        var phoneExists = _repository.Exists(contact.Phone);
 
-        if (existingContact)
+        if (phoneExists)
         {
-            return Result<ContactDto>.Conflict("");
+            return Result<ContactDto>.Conflict($"A contact with phone {contact.Phone} exists.");
+        }
+
+        var nameExists = _repository.Exists(contact.FirstName, contact.LastName);
+
+        if (nameExists)
+        {
+            return Result<ContactDto>.Conflict($"A contact with name {contact.Name} exists.");
         }
 
         var createdContact = await _repository.AddAsync(contact);
