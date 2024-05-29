@@ -11,6 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
+      <PackageReference Include="Ardalis.Result.FluentValidation" Version="9.1.0" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     </ItemGroup>
 

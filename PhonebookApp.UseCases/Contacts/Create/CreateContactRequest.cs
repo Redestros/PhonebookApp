@@ -1,8 +1,7 @@
-﻿namespace PhonebookApp.UseCases.Contact.CreateContact;
+﻿namespace PhonebookApp.UseCases.Contacts.Create;
 
 public class CreateContactRequest
 {
-    public int UserId { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

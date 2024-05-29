@@ -1,8 +1,8 @@
 ﻿using PhonebookApp.Core.Abstractions;
 
-namespace PhonebookApp.Core.Aggregates.UserAggregate;
+namespace PhonebookApp.Core.Aggregates.ContactAggregate;
 
-public class Contact : Entity
+public class Contact : Entity, IAggregateRoot
 {
     //For Entity Framework
     #pragma warning disable CS8618

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace PhonebookApp.UseCases.Contact.CreateContact;
+namespace PhonebookApp.UseCases.Contacts.Create;
 
 public class CreateContractCommandValidator : AbstractValidator<CreateContactCommand>
 {

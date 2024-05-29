@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonebookApp.Core", "Phoneb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonebookApp.UseCases", "PhonebookApp.UseCases\PhonebookApp.UseCases.csproj", "{DD4E187E-1B29-41DE-963B-EF1B7733CD52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhonebookApp.Infrastructure", "PhonebookApp.Infrastructure\PhonebookApp.Infrastructure.csproj", "{2499BA68-6B0D-4385-8913-C757A65A1975}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{DD4E187E-1B29-41DE-963B-EF1B7733CD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD4E187E-1B29-41DE-963B-EF1B7733CD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD4E187E-1B29-41DE-963B-EF1B7733CD52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2499BA68-6B0D-4385-8913-C757A65A1975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2499BA68-6B0D-4385-8913-C757A65A1975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2499BA68-6B0D-4385-8913-C757A65A1975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2499BA68-6B0D-4385-8913-C757A65A1975}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
