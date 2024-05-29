@@ -2,7 +2,6 @@
 @using PhonebookApp.Shared
 @using PhonebookApp.UI.Clients
 @inject ContactClient Client
-@inject NavigationManager NavigationManager
 @inject IJSRuntime Js
 
 <PageTitle>Contacts</PageTitle>
@@ -77,7 +76,7 @@ else
         if (confirm)
         {
             await Client.Delete(id);
-            NavigationManager.NavigateTo("/");
+            await OnInitializedAsync();
         }
     }
 
