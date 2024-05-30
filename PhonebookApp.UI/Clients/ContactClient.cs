@@ -29,6 +29,11 @@ public class ContactClient
     {
         await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress, model);
     }
+    
+    public async Task Update(int id, UpdateContactModel model)
+    {
+        await _httpClient.PutAsJsonAsync($"{_httpClient.BaseAddress}/{id}", model);
+    }
 
     public async Task Delete(int id)
     {

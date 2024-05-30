@@ -1,0 +1,68 @@
+@page "/contacts/edit/{Id:int}"
+@using PhonebookApp.UI.Clients
+@using PhonebookApp.UI.Models
+
+
+@inject NavigationManager NavigationManager
+@inject ContactClient Client
+<div class="row">
+    <EditForm Model="@_model" OnValidSubmit="@UpdateContact">
+        <DataAnnotationsValidator/>
+        <ValidationSummary/>
+
+        <div class="form-group">
+            First name: <InputText id="firstName" @bind-Value="_model.FirstName" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            Last name: <InputText id="lastName" @bind-Value="_model.LastName" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            Phone: <InputText id="phone" @bind-Value="_model.Phone" class="form-control"/>
+        </div>
+
+        <div class="form-group">
+            Email: <InputText id="email" @bind-Value="_model.Email" class="form-control"/>
+        </div>
+
+        <br/>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </EditForm>
+
+</div>
+
+<br/>
+<br/>
+<a href="/contacts">Back to List</a>
+
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    
+    private UpdateContactModel _model = new();
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id == null)
+        {
+            NavigationManager.NavigateTo("contacts");
+        }
+        else
+        {
+            var contact = await Client.Get((int)Id);
+            _model.FirstName = contact.FirstName;
+            _model.LastName = contact.LastName;
+            _model.Phone = contact.Phone;
+            _model.Email = contact.Email;
+        }
+    }
+
+    private async Task UpdateContact()
+    {
+        
+        await Client.Update(Id!.Value, _model);
+        NavigationManager.NavigateTo("contacts");
+    }
+}
