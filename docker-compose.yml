@@ -1,0 +1,41 @@
+﻿services:
+  phonebookapp.api:
+    image: phonebookapp.api
+    build:
+      context: .
+      dockerfile: PhonebookApp.Api/Dockerfile
+    ports:
+      - "5182:8080"
+    environment:
+      - ConnectionStrings__Database=Host=postgres:5432;Database=phonebook;User ID=postgres;Password=postgres;TrustServerCertificate=true
+    depends_on:
+      - postgres
+    command: ["sh", "-c", "dotnet ef database update -project ./PhonebookApp.Infrastructure && dotnet PhonebookApp.Api.dll"]
+  
+  phonebookapp.ui:
+    image: phonebookapp.ui
+    build:
+      context: .
+      dockerfile: PhonebookApp.UI/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - phonebookapp.api
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  migrations:
+    build:
+      context: .
+      dockerfile: PhonebookApp.Api/Migrations.Dockerfile
+
+volumes:
+  postgres_data:
